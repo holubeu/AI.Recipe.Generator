@@ -1,3 +1,5 @@
 <Solution>
   <Project Path="AiRecipeGenerator.API/AiRecipeGenerator.API.csproj" />
+  <Project Path="AiRecipeGenerator.Application/AiRecipeGenerator.Application.csproj" />
+  <Project Path="AiRecipeGenerator.Database/AiRecipeGenerator.Database.csproj" />
 </Solution>

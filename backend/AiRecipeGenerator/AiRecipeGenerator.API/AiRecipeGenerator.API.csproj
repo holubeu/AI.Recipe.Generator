@@ -10,4 +10,13 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AiRecipeGenerator.Application\AiRecipeGenerator.Application.csproj" />
+    <ProjectReference Include="..\AiRecipeGenerator.Database\AiRecipeGenerator.Database.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
