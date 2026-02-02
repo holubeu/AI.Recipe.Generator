@@ -1,0 +1,35 @@
+CREATE TABLE IF NOT EXISTS IngredientCategories (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name TEXT NOT NULL,
+    CreatedOn TEXT NOT NULL,
+    UpdatedOn TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Ingredients (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name TEXT NOT NULL,
+    CategoryId INTEGER NOT NULL,
+    IsVisibleOnCard INTEGER NOT NULL,
+    CreatedOn TEXT NOT NULL,
+    UpdatedOn TEXT NOT NULL,
+    ImagePath TEXT,
+    FOREIGN KEY (CategoryId) REFERENCES IngredientCategories(Id)
+);
+
+CREATE TABLE IF NOT EXISTS Recipes (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name TEXT NOT NULL,
+    Description TEXT,
+    DishType TEXT,
+    CookingTimeFrom INTEGER NOT NULL,
+    CookingTimeTo INTEGER NOT NULL,
+    Steps TEXT NOT NULL,
+    CreatedOn TEXT NOT NULL,
+    UpdatedOn TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS ApiKeys (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Key TEXT NOT NULL,
+    CreatedOn TEXT NOT NULL
+);

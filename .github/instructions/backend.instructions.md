@@ -59,8 +59,12 @@ Here are the projects and the folders they contain. Only the main folders are li
 - A DTO model is mapped to a query model or command model in the service method before being passed to the repository method.
 - A repository model is mapped to a DTO in the service method before being passed to the controller action.
 
-# API Controllers
+## API Controllers
 - Follow REST principles: one controller per entity.
 - Use clear and consistent routes with `[Route("api/[controller]")]`.
 - Each controller should expose CRUD endpoints for its entity when applicable.
 - Prefer plural nouns in routes (e.g. `/ingredients`, `/recipes`).
+
+## Coding Standards
+- Every class or interface should reside in its own file.
+- Place interfaces in the Interfaces directory and services in the Services directory.

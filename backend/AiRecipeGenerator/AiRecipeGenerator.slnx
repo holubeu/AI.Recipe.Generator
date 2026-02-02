@@ -1,4 +1,10 @@
 <Solution>
+  <Folder Name="/.github/">
+    <File Path="../../.github/copilot-instructions.md" />
+  </Folder>
+  <Folder Name="/.github/instructions/">
+    <File Path="../../.github/instructions/backend.instructions.md" />
+  </Folder>
   <Project Path="AiRecipeGenerator.API/AiRecipeGenerator.API.csproj" />
   <Project Path="AiRecipeGenerator.Application/AiRecipeGenerator.Application.csproj" />
   <Project Path="AiRecipeGenerator.Database/AiRecipeGenerator.Database.csproj" />

@@ -20,3 +20,7 @@ Copilot should follow these general rules when generating code for this reposito
 - Add comments only when logic is non-trivial or requires explanation.
 - Ensure consistency between backend and frontend (naming conventions, API endpoints).
 - Avoid unnecessary complexity; prefer simple and direct solutions.
+- Always act as an experienced developer who does not need every minor detail.
+- When necessary, choose the optimal solution yourself as long as it does not conflict with the specific instructions in the prompt.
+ For example, if I ask you to create an SQL script in the Database project, don’t place it in the project root—create a properly named folder and put the script there.
+- Ask clarifying questions about the implementation if it affects the application’s functionality or business logic.
