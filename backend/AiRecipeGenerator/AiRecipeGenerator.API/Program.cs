@@ -1,3 +1,4 @@
+using AiRecipeGenerator.Application;
 using AiRecipeGenerator.Application.Interfaces;
 using AiRecipeGenerator.Application.Services;
 using AiRecipeGenerator.Database;
@@ -12,6 +13,9 @@ builder.Services.AddOpenApi();
 
 // Add database services including repositories and connection factory
 builder.Services.AddDatabaseServices(connectionString);
+
+// Add application services
+builder.Services.AddApplicationServices();
 
 // Add database initialization service
 builder.Services.AddSingleton<IDatabaseInitializationService>(
