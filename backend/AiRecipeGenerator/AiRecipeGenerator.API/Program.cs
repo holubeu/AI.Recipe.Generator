@@ -1,16 +1,19 @@
 using AiRecipeGenerator.Application.Interfaces;
 using AiRecipeGenerator.Application.Services;
+using AiRecipeGenerator.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+// Add database services including repositories and connection factory
+builder.Services.AddDatabaseServices(connectionString);
+
 // Add database initialization service
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddSingleton<IDatabaseInitializationService>(
     new DatabaseInitializationService(connectionString));
 

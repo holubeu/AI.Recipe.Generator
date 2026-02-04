@@ -68,3 +68,5 @@ Here are the projects and the folders they contain. Only the main folders are li
 ## Coding Standards
 - Every class or interface should reside in its own file.
 - Place interfaces in the Interfaces directory and services in the Services directory.
+- Prefer using primary constructors.
+- Use simplified using statements without braces.

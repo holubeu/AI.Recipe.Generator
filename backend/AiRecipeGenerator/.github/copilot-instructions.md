@@ -7,3 +7,4 @@
 ## Code Style
 - Use specific formatting rules.
 - Follow naming conventions.
+- Prefer using primary constructors and simplified using statements without braces for all new code generation.

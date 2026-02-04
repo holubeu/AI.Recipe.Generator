@@ -5,6 +5,9 @@
   <Folder Name="/.github/instructions/">
     <File Path="../../.github/instructions/backend.instructions.md" />
   </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/AiRecipeGenerator.Database.Tests/AiRecipeGenerator.Database.Tests.csproj" />
+  </Folder>
   <Project Path="AiRecipeGenerator.API/AiRecipeGenerator.API.csproj" />
   <Project Path="AiRecipeGenerator.Application/AiRecipeGenerator.Application.csproj" />
   <Project Path="AiRecipeGenerator.Database/AiRecipeGenerator.Database.csproj" />
