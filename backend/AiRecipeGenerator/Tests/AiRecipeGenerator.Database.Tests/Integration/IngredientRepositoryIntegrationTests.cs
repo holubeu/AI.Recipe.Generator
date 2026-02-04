@@ -279,4 +279,65 @@ public class IngredientRepositoryIntegrationTests : IAsyncLifetime
         var remainingIngredients = await repository.GetAsync(getQueryModel);
         Assert.Empty(remainingIngredients.Items);
     }
+
+    [Fact]
+    public async Task GetAllAsync_WithMultipleCategoriesAndIngredients_ReturnsGroupedResults()
+    {
+        // Arrange
+        var connectionFactory = new SqliteConnectionFactory(SharedInMemoryConnectionString);
+        
+        using (var connection = (DbConnection)connectionFactory.CreateConnection())
+        {
+            await InitializeDatabaseAsync(connection);
+            await ClearTablesAsync(connection);
+            
+            await SeedCategoryAsync(connection, 1, "Vegetables");
+            await SeedCategoryAsync(connection, 2, "Fruits");
+            
+            await SeedTestDataAsync(connection, "Tomato", 1, true);
+            await SeedTestDataAsync(connection, "Carrot", 1, false);
+            await SeedTestDataAsync(connection, "Apple", 2, true);
+        }
+
+        var repository = new IngredientRepository(connectionFactory);
+
+        // Act
+        var result = await repository.GetAllAsync();
+
+        // Assert
+        Assert.NotNull(result);
+        var resultList = result.ToList();
+        Assert.NotEmpty(resultList);
+
+        var vegetables = resultList.Where(x => x.CategoryName == "Vegetables").ToList();
+        Assert.Equal(2, vegetables.Count);
+        Assert.Contains(vegetables, x => x.Ingredient.Name == "Tomato" && x.Ingredient.IsVisibleOnCard);
+        Assert.Contains(vegetables, x => x.Ingredient.Name == "Carrot" && !x.Ingredient.IsVisibleOnCard);
+
+        var fruits = resultList.Where(x => x.CategoryName == "Fruits").ToList();
+        Assert.Single(fruits);
+        Assert.Equal("Apple", fruits[0].Ingredient.Name);
+    }
+
+    [Fact]
+    public async Task GetAllAsync_WithEmptyDatabase_ReturnsEmptyCollection()
+    {
+        // Arrange
+        var connectionFactory = new SqliteConnectionFactory(SharedInMemoryConnectionString);
+        
+        using (var connection = (DbConnection)connectionFactory.CreateConnection())
+        {
+            await InitializeDatabaseAsync(connection);
+            await ClearTablesAsync(connection);
+        }
+
+        var repository = new IngredientRepository(connectionFactory);
+
+        // Act
+        var result = await repository.GetAllAsync();
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Empty(result);
+    }
 }

@@ -20,4 +20,11 @@ public class IngredientService(IIngredientRepository repository) : IIngredientSe
     public async Task AddAsync(AddIngredientCommandModel commandModel) => await repository.AddAsync(commandModel);
 
     public async Task DeleteAsync(int id) => await repository.DeleteAsync(id);
+
+    public async Task<IEnumerable<GetAllIngredientsDto>> GetAllAsync()
+    {
+        var result = await repository.GetAllAsync();
+        var groupedByCategory = result.GroupBy(x => x.CategoryName);
+        return groupedByCategory.ToGetAllIngredientsDtos();
+    }
 }

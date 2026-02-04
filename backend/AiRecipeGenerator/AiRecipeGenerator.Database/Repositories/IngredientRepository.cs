@@ -98,4 +98,29 @@ public class IngredientRepository(IDbConnectionFactory connectionFactory) : IIng
         var parameters = new { Id = id };
         await connection.ExecuteAsync(query, parameters);
     }
+
+    public async Task<IEnumerable<(IngredientRepositoryModel Ingredient, string CategoryName)>> GetAllAsync()
+    {
+        using var connection = (DbConnection)connectionFactory.CreateConnection();
+        await connection.OpenAsync();
+        var query = @"SELECT i.*, ic.Name as CategoryName FROM Ingredients i
+                    INNER JOIN IngredientCategories ic ON i.CategoryId = ic.Id
+                    ORDER BY ic.Name, i.Name";
+        
+        var result = await connection.QueryAsync<dynamic>(query);
+        
+        return result.Select(row => (
+            new IngredientRepositoryModel
+            {
+                Id = (int)row.Id,
+                Name = row.Name,
+                CategoryId = (int)row.CategoryId,
+                IsVisibleOnCard = Convert.ToBoolean(row.IsVisibleOnCard),
+                CreatedOn = DateTime.ParseExact((string)row.CreatedOn, "O", System.Globalization.CultureInfo.InvariantCulture),
+                UpdatedOn = DateTime.ParseExact((string)row.UpdatedOn, "O", System.Globalization.CultureInfo.InvariantCulture),
+                ImagePath = row.ImagePath
+            },
+            (string)row.CategoryName
+        ));
+    }
 }

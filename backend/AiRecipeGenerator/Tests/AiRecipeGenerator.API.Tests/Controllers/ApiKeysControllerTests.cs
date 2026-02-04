@@ -5,6 +5,8 @@ using AiRecipeGenerator.Database.Models.Commands;
 
 using AutoFixture.Xunit2;
 
+using Microsoft.AspNetCore.Mvc;
+
 using NSubstitute;
 
 using Xunit;
@@ -27,7 +29,7 @@ public class ApiKeysControllerTests
 
         // Assert
         Assert.NotNull(result);
-        var okResult = Assert.IsType<Microsoft.AspNetCore.Mvc.OkObjectResult>(result.Result);
+        var okResult = Assert.IsType<OkObjectResult>(result.Result);
         Assert.NotNull(okResult.Value);
         await mockService.Received(1).GetLatestAsync();
     }
@@ -43,7 +45,7 @@ public class ApiKeysControllerTests
         var result = await controller.AddAsync(requestModel);
 
         // Assert
-        Assert.IsType<Microsoft.AspNetCore.Mvc.NoContentResult>(result);
+        Assert.IsType<NoContentResult>(result);
         await mockService.Received(1).AddAsync(Arg.Any<AddApiKeyCommandModel>());
     }
 }

@@ -7,6 +7,8 @@ using AiRecipeGenerator.Database.Models.Queries;
 
 using AutoFixture.Xunit2;
 
+using Microsoft.AspNetCore.Mvc;
+
 using NSubstitute;
 
 using Xunit;
@@ -51,7 +53,7 @@ public class RecipesControllerTests
 
         // Assert
         Assert.NotNull(result);
-        var okResult = Assert.IsType<Microsoft.AspNetCore.Mvc.OkObjectResult>(result.Result);
+        var okResult = Assert.IsType<OkObjectResult>(result.Result);
         Assert.NotNull(okResult.Value);
         await mockService.Received(1).GetAsync(Arg.Any<GetRecipesQueryModel>());
     }
@@ -67,8 +69,8 @@ public class RecipesControllerTests
         var result = await controller.AddAsync(requestModel);
 
         // Assert
-        Assert.IsType<Microsoft.AspNetCore.Mvc.NoContentResult>(result);
-        await mockService.Received(1).AddAsync(Arg.Any<AiRecipeGenerator.Database.Models.Commands.AddRecipeCommandModel>());
+        Assert.IsType<NoContentResult>(result);
+        await mockService.Received(1).AddAsync(Arg.Any<AddRecipeCommandModel>());
     }
 
     [Theory, AutoData]
@@ -82,7 +84,7 @@ public class RecipesControllerTests
         var result = await controller.UpdateAsync(requestModel);
 
         // Assert
-        Assert.IsType<Microsoft.AspNetCore.Mvc.NoContentResult>(result);
+        Assert.IsType<NoContentResult>(result);
         await mockService.Received(1).UpdateAsync(Arg.Any<UpdateRecipeCommandModel>());
     }
 
@@ -97,7 +99,7 @@ public class RecipesControllerTests
         var result = await controller.DeleteAsync(id);
 
         // Assert
-        Assert.IsType<Microsoft.AspNetCore.Mvc.NoContentResult>(result);
+        Assert.IsType<NoContentResult>(result);
         await mockService.Received(1).DeleteAsync(id);
     }
 }

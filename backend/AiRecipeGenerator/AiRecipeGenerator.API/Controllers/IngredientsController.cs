@@ -20,6 +20,13 @@ public class IngredientsController(IIngredientService service) : ControllerBase
         return Ok(result.ToPaginatedGetIngredientResponseModel());
     }
 
+    [HttpGet("grouped")]
+    public async Task<ActionResult<IEnumerable<GetAllIngredientsResponseModel>>> GetAllAsync()
+    {
+        var result = await service.GetAllAsync();
+        return Ok(result.ToGetAllIngredientsResponseModels());
+    }
+
     [HttpPost]
     public async Task<IActionResult> AddAsync([FromBody] AddIngredientRequestModel requestModel)
     {

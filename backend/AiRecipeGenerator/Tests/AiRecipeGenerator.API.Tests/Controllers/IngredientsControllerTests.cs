@@ -7,6 +7,8 @@ using AiRecipeGenerator.Database.Models.Queries;
 
 using AutoFixture.Xunit2;
 
+using Microsoft.AspNetCore.Mvc;
+
 using NSubstitute;
 
 using Xunit;
@@ -49,7 +51,7 @@ public class IngredientsControllerTests
 
         // Assert
         Assert.NotNull(result);
-        var okResult = Assert.IsType<Microsoft.AspNetCore.Mvc.OkObjectResult>(result.Result);
+        var okResult = Assert.IsType<OkObjectResult>(result.Result);
         Assert.NotNull(okResult.Value);
         await mockService.Received(1).GetAsync(Arg.Any<GetIngredientsQueryModel>());
     }
@@ -65,8 +67,8 @@ public class IngredientsControllerTests
         var result = await controller.AddAsync(requestModel);
 
         // Assert
-        Assert.IsType<Microsoft.AspNetCore.Mvc.NoContentResult>(result);
-        await mockService.Received(1).AddAsync(Arg.Any<AiRecipeGenerator.Database.Models.Commands.AddIngredientCommandModel>());
+        Assert.IsType<NoContentResult>(result);
+        await mockService.Received(1).AddAsync(Arg.Any<AddIngredientCommandModel>());
     }
 
     [Theory, AutoData]
@@ -80,7 +82,7 @@ public class IngredientsControllerTests
         var result = await controller.UpdateAsync(requestModel);
 
         // Assert
-        Assert.IsType<Microsoft.AspNetCore.Mvc.NoContentResult>(result);
+        Assert.IsType<NoContentResult>(result);
         await mockService.Received(1).UpdateAsync(Arg.Any<UpdateIngredientCommandModel>());
     }
 
@@ -95,7 +97,27 @@ public class IngredientsControllerTests
         var result = await controller.DeleteAsync(id);
 
         // Assert
-        Assert.IsType<Microsoft.AspNetCore.Mvc.NoContentResult>(result);
+        Assert.IsType<NoContentResult>(result);
         await mockService.Received(1).DeleteAsync(id);
+    }
+
+    [Theory, AutoData]
+    public async Task GetAllAsync_CallsServiceAndReturnsOkWithGroupedIngredients(List<GetAllIngredientsDto> ingredientsByCategory)
+    {
+        // Arrange
+        var mockService = Substitute.For<IIngredientService>();
+
+        mockService.GetAllAsync().Returns(ingredientsByCategory);
+
+        var controller = new IngredientsController(mockService);
+
+        // Act
+        var result = await controller.GetAllAsync();
+
+        // Assert
+        Assert.NotNull(result);
+        var okResult = Assert.IsType<OkObjectResult>(result.Result);
+        Assert.NotNull(okResult.Value);
+        await mockService.Received(1).GetAllAsync();
     }
 }

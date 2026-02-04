@@ -7,6 +7,8 @@ using AiRecipeGenerator.Database.Models.Queries;
 
 using AutoFixture.Xunit2;
 
+using Microsoft.AspNetCore.Mvc;
+
 using NSubstitute;
 
 using Xunit;
@@ -46,7 +48,7 @@ public class IngredientCategoriesControllerTests
 
         // Assert
         Assert.NotNull(result);
-        var okResult = Assert.IsType<Microsoft.AspNetCore.Mvc.OkObjectResult>(result.Result);
+        var okResult = Assert.IsType<OkObjectResult>(result.Result);
         Assert.NotNull(okResult.Value);
         await mockService.Received(1).GetAllAsync(Arg.Any<GetIngredientCategoriesQueryModel>());
     }
@@ -62,8 +64,8 @@ public class IngredientCategoriesControllerTests
         var result = await controller.AddAsync(requestModel);
 
         // Assert
-        Assert.IsType<Microsoft.AspNetCore.Mvc.NoContentResult>(result);
-        await mockService.Received(1).AddAsync(Arg.Any<AiRecipeGenerator.Database.Models.Commands.AddIngredientCategoryCommandModel>());
+        Assert.IsType<NoContentResult>(result);
+        await mockService.Received(1).AddAsync(Arg.Any<AddIngredientCategoryCommandModel>());
     }
 
     [Theory, AutoData]

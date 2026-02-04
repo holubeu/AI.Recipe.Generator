@@ -10,4 +10,5 @@ public interface IIngredientService
     Task UpdateAsync(UpdateIngredientCommandModel commandModel);
     Task AddAsync(AddIngredientCommandModel commandModel);
     Task DeleteAsync(int id);
+    Task<IEnumerable<GetAllIngredientsDto>> GetAllAsync();
 }

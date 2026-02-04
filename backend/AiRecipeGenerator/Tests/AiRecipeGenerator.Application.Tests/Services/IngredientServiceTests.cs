@@ -83,4 +83,75 @@ public class IngredientServiceTests
         // Assert
         await mockRepository.Received(1).DeleteAsync(id);
     }
+
+    [Fact]
+    public async Task GetAllAsync_CallsRepositoryAndReturnsGroupedDtos()
+    {
+        // Arrange
+        var mockRepository = Substitute.For<IIngredientRepository>();
+        var repositoryResult = new List<(IngredientRepositoryModel Ingredient, string CategoryName)>
+        {
+            (
+                new IngredientRepositoryModel
+                {
+                    Id = 1,
+                    Name = "Tomato",
+                    CategoryId = 1,
+                    IsVisibleOnCard = true,
+                    ImagePath = "/images/tomato.jpg",
+                    CreatedOn = DateTime.UtcNow,
+                    UpdatedOn = DateTime.UtcNow
+                },
+                "Vegetables"
+            ),
+            (
+                new IngredientRepositoryModel
+                {
+                    Id = 2,
+                    Name = "Carrot",
+                    CategoryId = 1,
+                    IsVisibleOnCard = true,
+                    ImagePath = "/images/carrot.jpg",
+                    CreatedOn = DateTime.UtcNow,
+                    UpdatedOn = DateTime.UtcNow
+                },
+                "Vegetables"
+            ),
+            (
+                new IngredientRepositoryModel
+                {
+                    Id = 3,
+                    Name = "Apple",
+                    CategoryId = 2,
+                    IsVisibleOnCard = true,
+                    ImagePath = "/images/apple.jpg",
+                    CreatedOn = DateTime.UtcNow,
+                    UpdatedOn = DateTime.UtcNow
+                },
+                "Fruits"
+            )
+        };
+
+        mockRepository.GetAllAsync().Returns(repositoryResult);
+
+        var service = new IngredientService(mockRepository);
+
+        // Act
+        var result = await service.GetAllAsync();
+
+        // Assert
+        Assert.NotNull(result);
+        var resultList = result.ToList();
+        Assert.Equal(2, resultList.Count);
+        
+        var vegetablesGroup = resultList.FirstOrDefault(x => x.Category == "Vegetables");
+        Assert.NotNull(vegetablesGroup);
+        Assert.Equal(2, vegetablesGroup.Ingredients.Count());
+        
+        var fruitsGroup = resultList.FirstOrDefault(x => x.Category == "Fruits");
+        Assert.NotNull(fruitsGroup);
+        Assert.Single(fruitsGroup.Ingredients);
+
+        await mockRepository.Received(1).GetAllAsync();
+    }
 }

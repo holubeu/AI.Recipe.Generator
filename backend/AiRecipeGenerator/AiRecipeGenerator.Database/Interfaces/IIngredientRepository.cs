@@ -11,4 +11,5 @@ public interface IIngredientRepository
     Task UpdateAsync(UpdateIngredientCommandModel commandModel);
     Task AddAsync(AddIngredientCommandModel commandModel);
     Task DeleteAsync(int id);
+    Task<IEnumerable<(IngredientRepositoryModel Ingredient, string CategoryName)>> GetAllAsync();
 }
