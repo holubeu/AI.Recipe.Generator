@@ -33,7 +33,7 @@ public static class RecipeMappings
         string[] steps;
         if (string.IsNullOrWhiteSpace(repositoryModel.Steps))
         {
-            steps = Array.Empty<string>();
+            throw new InvalidOperationException($"Recipe steps JSON is null or empty: {repositoryModel.Steps}");
         }
         else
         {
