@@ -13,6 +13,9 @@ public static class ServiceRegistration
         services.AddSingleton<IRecipeService, RecipeService>();
         services.AddSingleton<IIngredientCategoryService, IngredientCategoryService>();
         services.AddSingleton<IIngredientService, IngredientService>();
+        services.AddSingleton<IOpenRouterService, OpenRouterService>();
+        
+        services.AddHttpClient<IOpenRouterService, OpenRouterService>();
 
         return services;
     }

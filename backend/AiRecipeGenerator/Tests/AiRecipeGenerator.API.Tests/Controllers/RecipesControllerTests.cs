@@ -22,6 +22,8 @@ public class RecipesControllerTests
     {
         // Arrange
         var mockService = Substitute.For<IRecipeService>();
+        var mockOpenRouterService = Substitute.For<IOpenRouterService>();
+        
         var recipeDtos = new List<RecipeDto>
         {
             new()
@@ -46,7 +48,7 @@ public class RecipesControllerTests
 
         mockService.GetAsync(Arg.Any<GetRecipesQueryModel>()).Returns(paginatedResult);
 
-        var controller = new RecipesController(mockService);
+        var controller = new RecipesController(mockService, mockOpenRouterService);
 
         // Act
         var result = await controller.GetAsync(requestModel);
@@ -63,7 +65,8 @@ public class RecipesControllerTests
     {
         // Arrange
         var mockService = Substitute.For<IRecipeService>();
-        var controller = new RecipesController(mockService);
+        var mockOpenRouterService = Substitute.For<IOpenRouterService>();
+        var controller = new RecipesController(mockService, mockOpenRouterService);
 
         // Act
         var result = await controller.AddAsync(requestModel);
@@ -78,7 +81,8 @@ public class RecipesControllerTests
     {
         // Arrange
         var mockService = Substitute.For<IRecipeService>();
-        var controller = new RecipesController(mockService);
+        var mockOpenRouterService = Substitute.For<IOpenRouterService>();
+        var controller = new RecipesController(mockService, mockOpenRouterService);
 
         // Act
         var result = await controller.UpdateAsync(requestModel);
@@ -93,7 +97,8 @@ public class RecipesControllerTests
     {
         // Arrange
         var mockService = Substitute.For<IRecipeService>();
-        var controller = new RecipesController(mockService);
+        var mockOpenRouterService = Substitute.For<IOpenRouterService>();
+        var controller = new RecipesController(mockService, mockOpenRouterService);
 
         // Act
         var result = await controller.DeleteAsync(id);

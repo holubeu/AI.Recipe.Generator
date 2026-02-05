@@ -3,6 +3,7 @@ using AiRecipeGenerator.API.Mappings.Responses;
 using AiRecipeGenerator.API.Models.Requests;
 using AiRecipeGenerator.API.Models.Responses;
 using AiRecipeGenerator.Application.Interfaces;
+using AiRecipeGenerator.Database.Models.Queries;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +11,7 @@ namespace AiRecipeGenerator.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class RecipesController(IRecipeService service) : ControllerBase
+public class RecipesController(IRecipeService service, IOpenRouterService openRouterService) : ControllerBase
 {
     [HttpGet]
     public async Task<ActionResult<PaginatedResponseModel<GetRecipeResponseModel>>> GetAsync([FromQuery] GetRecipesRequestModel requestModel)
@@ -41,5 +42,13 @@ public class RecipesController(IRecipeService service) : ControllerBase
     {
         await service.DeleteAsync(id);
         return NoContent();
+    }
+
+    [HttpPost("generate")]
+    public async Task<ActionResult<GeneratedRecipeResponseModel>> GenerateRecipeAsync([FromBody] GenerateRecipeRequestModel requestModel)
+    {
+        var queryModel = requestModel.ToGenerateRecipeQueryModel();
+        var result = await openRouterService.GenerateRecipeAsync(queryModel);
+        return Ok(result.ToGeneratedRecipeResponseModel());
     }
 }
