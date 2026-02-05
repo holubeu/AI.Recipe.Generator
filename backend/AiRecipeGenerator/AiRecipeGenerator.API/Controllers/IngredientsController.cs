@@ -1,3 +1,4 @@
+using AiRecipeGenerator.API.Authentication;
 using AiRecipeGenerator.API.Mappings.Requests;
 using AiRecipeGenerator.API.Mappings.Responses;
 using AiRecipeGenerator.API.Models.Requests;
@@ -13,6 +14,7 @@ namespace AiRecipeGenerator.API.Controllers;
 public class IngredientsController(IIngredientService service) : ControllerBase
 {
     [HttpGet]
+    [RoleAuthorize(UserRole.Admin)]
     public async Task<ActionResult<PaginatedResponseModel<GetIngredientResponseModel>>> GetAsync([FromQuery] GetIngredientsRequestModel requestModel)
     {
         var queryModel = requestModel.ToGetIngredientsQueryModel();
@@ -21,6 +23,7 @@ public class IngredientsController(IIngredientService service) : ControllerBase
     }
 
     [HttpGet("grouped")]
+    [RoleAuthorize(UserRole.User)]
     public async Task<ActionResult<IEnumerable<GetAllIngredientsResponseModel>>> GetAllAsync()
     {
         var result = await service.GetAllAsync();
@@ -28,6 +31,7 @@ public class IngredientsController(IIngredientService service) : ControllerBase
     }
 
     [HttpPost]
+    [RoleAuthorize(UserRole.Admin)]
     public async Task<IActionResult> AddAsync([FromBody] AddIngredientRequestModel requestModel)
     {
         var commandModel = requestModel.ToAddIngredientCommandModel();
@@ -36,6 +40,7 @@ public class IngredientsController(IIngredientService service) : ControllerBase
     }
 
     [HttpPut]
+    [RoleAuthorize(UserRole.Admin)]
     public async Task<IActionResult> UpdateAsync([FromBody] UpdateIngredientRequestModel requestModel)
     {
         var commandModel = requestModel.ToUpdateIngredientCommandModel();
@@ -44,6 +49,7 @@ public class IngredientsController(IIngredientService service) : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [RoleAuthorize(UserRole.Admin)]
     public async Task<IActionResult> DeleteAsync(int id)
     {
         await service.DeleteAsync(id);

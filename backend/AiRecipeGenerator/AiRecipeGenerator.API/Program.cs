@@ -1,3 +1,4 @@
+using AiRecipeGenerator.API.Authentication;
 using AiRecipeGenerator.Application;
 using AiRecipeGenerator.Application.Interfaces;
 using AiRecipeGenerator.Application.Services;
@@ -39,6 +40,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Add role middleware to extract role from headers
+app.UseMiddleware<RoleMiddleware>();
 
 app.UseAuthorization();
 

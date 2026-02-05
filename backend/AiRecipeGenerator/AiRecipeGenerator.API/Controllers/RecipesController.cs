@@ -1,3 +1,4 @@
+using AiRecipeGenerator.API.Authentication;
 using AiRecipeGenerator.API.Mappings.Requests;
 using AiRecipeGenerator.API.Mappings.Responses;
 using AiRecipeGenerator.API.Models.Requests;
@@ -13,6 +14,7 @@ namespace AiRecipeGenerator.API.Controllers;
 public class RecipesController(IRecipeService service, IOpenRouterService openRouterService) : ControllerBase
 {
     [HttpGet]
+    [RoleAuthorize(UserRole.User, UserRole.Admin)]
     public async Task<ActionResult<PaginatedResponseModel<GetRecipeResponseModel>>> GetAsync([FromQuery] GetRecipesRequestModel requestModel)
     {
         var queryModel = requestModel.ToGetRecipesQueryModel();
@@ -21,6 +23,7 @@ public class RecipesController(IRecipeService service, IOpenRouterService openRo
     }
 
     [HttpPost]
+    [RoleAuthorize(UserRole.User)]
     public async Task<IActionResult> AddAsync([FromBody] AddRecipeRequestModel requestModel)
     {
         var commandModel = requestModel.ToAddRecipeCommandModel();
@@ -29,6 +32,7 @@ public class RecipesController(IRecipeService service, IOpenRouterService openRo
     }
 
     [HttpPut]
+    [RoleAuthorize(UserRole.User)]
     public async Task<IActionResult> UpdateAsync([FromBody] UpdateRecipeRequestModel requestModel)
     {
         var commandModel = requestModel.ToUpdateRecipeCommandModel();
@@ -37,6 +41,7 @@ public class RecipesController(IRecipeService service, IOpenRouterService openRo
     }
 
     [HttpDelete("{id}")]
+    [RoleAuthorize(UserRole.User)]
     public async Task<IActionResult> DeleteAsync(int id)
     {
         await service.DeleteAsync(id);
@@ -44,6 +49,7 @@ public class RecipesController(IRecipeService service, IOpenRouterService openRo
     }
 
     [HttpPost("generate")]
+    [RoleAuthorize(UserRole.User)]
     public async Task<ActionResult<GeneratedRecipeResponseModel>> GenerateRecipeAsync([FromBody] GenerateRecipeRequestModel requestModel)
     {
         var queryModel = requestModel.ToGenerateRecipeQueryModel();

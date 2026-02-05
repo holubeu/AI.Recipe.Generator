@@ -1,3 +1,4 @@
+using AiRecipeGenerator.API.Authentication;
 using AiRecipeGenerator.API.Mappings.Responses;
 using AiRecipeGenerator.API.Models.Requests;
 using AiRecipeGenerator.API.Models.Responses;
@@ -13,6 +14,7 @@ namespace AiRecipeGenerator.API.Controllers;
 public class ApiKeysController(IApiKeyService service) : ControllerBase
 {
     [HttpGet("latest")]
+    [RoleAuthorize(UserRole.User)]
     public async Task<ActionResult<GetLatestApiKeyResponseModel>> GetLatestAsync()
     {
         var result = await service.GetLatestAsync();
@@ -20,6 +22,7 @@ public class ApiKeysController(IApiKeyService service) : ControllerBase
     }
 
     [HttpPost]
+    [RoleAuthorize(UserRole.Admin)]
     public async Task<IActionResult> AddAsync([FromBody] AddApiKeyRequestModel requestModel)
     {
         var commandModel = new AddApiKeyCommandModel { Key = requestModel.Key };
