@@ -1,4 +1,5 @@
 using AiRecipeGenerator.API.Authentication;
+using AiRecipeGenerator.API.Exceptions;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +12,7 @@ namespace AiRecipeGenerator.API.Tests.Authentication;
 public class RoleAuthorizeAttributeTests
 {
     [Fact]
-    public void OnAuthorization_WithAllowedRole_DoesNotSetForbidResult()
+    public void OnAuthorization_WithAllowedRole_DoesNotThrow()
     {
         // Arrange
         var attribute = new RoleAuthorizeAttribute(UserRole.User);
@@ -21,15 +22,13 @@ public class RoleAuthorizeAttributeTests
         var actionContext = new ActionContext(httpContext, new Microsoft.AspNetCore.Routing.RouteData(), new Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor());
         var authorizationFilterContext = new AuthorizationFilterContext(actionContext, []);
 
-        // Act
+        // Act & Assert
+        // Should not throw
         attribute.OnAuthorization(authorizationFilterContext);
-
-        // Assert
-        Assert.Null(authorizationFilterContext.Result);
     }
 
     [Fact]
-    public void OnAuthorization_WithDisallowedRole_SetsForbidResult()
+    public void OnAuthorization_WithDisallowedRole_ThrowsForbiddenException()
     {
         // Arrange
         var attribute = new RoleAuthorizeAttribute(UserRole.Admin);
@@ -39,12 +38,8 @@ public class RoleAuthorizeAttributeTests
         var actionContext = new ActionContext(httpContext, new Microsoft.AspNetCore.Routing.RouteData(), new Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor());
         var authorizationFilterContext = new AuthorizationFilterContext(actionContext, []);
 
-        // Act
-        attribute.OnAuthorization(authorizationFilterContext);
-
-        // Assert
-        Assert.NotNull(authorizationFilterContext.Result);
-        Assert.IsType<ForbidResult>(authorizationFilterContext.Result);
+        // Act & Assert
+        Assert.Throws<ForbiddenException>(() => attribute.OnAuthorization(authorizationFilterContext));
     }
 
     [Fact]
@@ -66,7 +61,7 @@ public class RoleAuthorizeAttributeTests
     }
 
     [Fact]
-    public void OnAuthorization_WithMissingRoleInContext_SetsForbidResult()
+    public void OnAuthorization_WithMissingRoleInContext_ThrowsForbiddenException()
     {
         // Arrange
         var attribute = new RoleAuthorizeAttribute(UserRole.User);
@@ -75,12 +70,8 @@ public class RoleAuthorizeAttributeTests
         var actionContext = new ActionContext(httpContext, new Microsoft.AspNetCore.Routing.RouteData(), new Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor());
         var authorizationFilterContext = new AuthorizationFilterContext(actionContext, []);
 
-        // Act
-        attribute.OnAuthorization(authorizationFilterContext);
-
-        // Assert
-        Assert.NotNull(authorizationFilterContext.Result);
-        Assert.IsType<ForbidResult>(authorizationFilterContext.Result);
+        // Act & Assert
+        Assert.Throws<ForbiddenException>(() => attribute.OnAuthorization(authorizationFilterContext));
     }
 
     [Fact]
@@ -94,10 +85,8 @@ public class RoleAuthorizeAttributeTests
         var actionContext = new ActionContext(httpContext, new Microsoft.AspNetCore.Routing.RouteData(), new Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor());
         var authorizationFilterContext = new AuthorizationFilterContext(actionContext, []);
 
-        // Act
+        // Act & Assert
+        // Should not throw when user has User role
         attribute.OnAuthorization(authorizationFilterContext);
-
-        // Assert
-        Assert.Null(authorizationFilterContext.Result);
     }
 }

@@ -1,4 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
+using AiRecipeGenerator.API.Exceptions;
+
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace AiRecipeGenerator.API.Authentication;
@@ -18,6 +19,6 @@ public class RoleAuthorizeAttribute(params UserRole[] allowedRoles) : Attribute,
             }
         }
 
-        context.Result = new ForbidResult();
+        throw new ForbiddenException("Access forbidden");
     }
 }
