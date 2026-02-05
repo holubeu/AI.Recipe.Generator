@@ -3,7 +3,6 @@ using AiRecipeGenerator.API.Mappings.Responses;
 using AiRecipeGenerator.API.Models.Requests;
 using AiRecipeGenerator.API.Models.Responses;
 using AiRecipeGenerator.Application.Interfaces;
-using AiRecipeGenerator.Database.Models.Queries;
 
 using Microsoft.AspNetCore.Mvc;
 

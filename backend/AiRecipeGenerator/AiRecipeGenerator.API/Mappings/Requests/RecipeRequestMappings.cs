@@ -13,8 +13,7 @@ public static class RecipeRequestMappings
         {
             Name = requestModel.Name,
             DishType = requestModel.DishType,
-            CookingTimeFrom = requestModel.CookingTimeFrom,
-            CookingTimeTo = requestModel.CookingTimeTo,
+            MaxCookingTime = requestModel.MaxCookingTime,
             Skip = requestModel.Skip,
             Take = requestModel.Take
         };

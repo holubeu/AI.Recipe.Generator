@@ -32,16 +32,10 @@ public class RecipeRepository(IDbConnectionFactory connectionFactory) : IRecipeR
             parameters.Add("@DishType", queryModel.DishType);
         }
 
-        if (queryModel.CookingTimeFrom.HasValue)
+        if (queryModel.MaxCookingTime.HasValue)
         {
-            whereConditions.Add("CookingTimeFrom >= @CookingTimeFrom");
-            parameters.Add("@CookingTimeFrom", queryModel.CookingTimeFrom.Value);
-        }
-
-        if (queryModel.CookingTimeTo.HasValue)
-        {
-            whereConditions.Add("CookingTimeTo <= @CookingTimeTo");
-            parameters.Add("@CookingTimeTo", queryModel.CookingTimeTo.Value);
+            whereConditions.Add("CookingTimeFrom <= @MaxCookingTime");
+            parameters.Add("@MaxCookingTime", queryModel.MaxCookingTime.Value);
         }
 
         var whereClause = whereConditions.Count > 0 ? "WHERE " + string.Join(" AND ", whereConditions) : "";
