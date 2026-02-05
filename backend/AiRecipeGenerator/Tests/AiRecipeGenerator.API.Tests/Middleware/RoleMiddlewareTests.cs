@@ -1,10 +1,11 @@
 using AiRecipeGenerator.API.Authentication;
+using AiRecipeGenerator.API.Middleware;
 
 using Microsoft.AspNetCore.Http;
 
 using Xunit;
 
-namespace AiRecipeGenerator.API.Tests.Authentication;
+namespace AiRecipeGenerator.API.Tests.Middleware;
 
 public class RoleMiddlewareTests
 {

@@ -1,4 +1,6 @@
-namespace AiRecipeGenerator.API.Authentication;
+using AiRecipeGenerator.API.Authentication;
+
+namespace AiRecipeGenerator.API.Middleware;
 
 public class RoleMiddleware(RequestDelegate next)
 {

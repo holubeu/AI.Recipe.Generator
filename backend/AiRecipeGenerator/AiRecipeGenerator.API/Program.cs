@@ -1,4 +1,3 @@
-using AiRecipeGenerator.API.Authentication;
 using AiRecipeGenerator.API.Middleware;
 using AiRecipeGenerator.Application;
 using AiRecipeGenerator.Application.Interfaces;
