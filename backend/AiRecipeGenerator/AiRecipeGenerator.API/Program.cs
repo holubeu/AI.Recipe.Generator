@@ -1,8 +1,10 @@
 using AiRecipeGenerator.API.Authentication;
+using AiRecipeGenerator.API.Middleware;
 using AiRecipeGenerator.Application;
 using AiRecipeGenerator.Application.Interfaces;
 using AiRecipeGenerator.Application.Services;
 using AiRecipeGenerator.Database;
+
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,6 +40,9 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
+
+// Add error handling middleware (must be before other middleware that might throw)
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 
