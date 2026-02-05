@@ -107,4 +107,27 @@ public class RecipesControllerTests
         Assert.IsType<NoContentResult>(result);
         await mockService.Received(1).DeleteAsync(id);
     }
+
+    [Theory, AutoData]
+    public async Task GenerateRecipeAsync_WithValidRequestModel_CallsOpenRouterServiceAndReturnsOkWithGeneratedRecipe(
+        GenerateRecipeRequestModel requestModel,
+        GeneratedRecipeDto generatedRecipeDto)
+    {
+        // Arrange
+        var mockService = Substitute.For<IRecipeService>();
+        var mockOpenRouterService = Substitute.For<IOpenRouterService>();
+
+        mockOpenRouterService.GenerateRecipeAsync(Arg.Any<GenerateRecipeQueryModel>()).Returns(generatedRecipeDto);
+
+        var controller = new RecipesController(mockService, mockOpenRouterService);
+
+        // Act
+        var result = await controller.GenerateRecipeAsync(requestModel);
+
+        // Assert
+        Assert.NotNull(result);
+        var okResult = Assert.IsType<OkObjectResult>(result.Result);
+        Assert.NotNull(okResult.Value);
+        await mockOpenRouterService.Received(1).GenerateRecipeAsync(Arg.Any<GenerateRecipeQueryModel>());
+    }
 }
