@@ -1,3 +1,4 @@
+using AiRecipeGenerator.API.Authentication;
 using AiRecipeGenerator.API.Middleware;
 using AiRecipeGenerator.Application;
 using AiRecipeGenerator.Application.Interfaces;
@@ -13,6 +14,17 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
+
+// Add CORS services
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .WithMethods("GET", "POST", "PUT", "DELETE")
+              .AllowAnyHeader();
+    });
+});
 
 // Add database services including repositories and connection factory
 builder.Services.AddDatabaseServices(connectionString);
@@ -44,6 +56,9 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseHttpsRedirection();
+
+// Enable CORS
+app.UseCors();
 
 // Add role middleware to extract role from headers
 app.UseMiddleware<RoleMiddleware>();
