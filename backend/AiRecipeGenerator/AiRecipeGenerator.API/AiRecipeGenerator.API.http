@@ -1,6 +1,0 @@
-@AiRecipeGenerator.API_HostAddress = http://localhost:5052
-
-GET {{AiRecipeGenerator.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
