@@ -1,44 +1,39 @@
-import { useEffect, useState } from "react";
-import { apiBaseUrl, getJson } from "./lib/apiClient";
-
-type ApiStatus = {
-  ok: boolean;
-  message: string;
-};
+import { useState } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import AdminLayout from "./layouts/AdminLayout";
+import UserLayout from "./layouts/UserLayout";
+import AdminHome from "./pages/AdminHome";
+import StartPage from "./pages/StartPage";
+import UserHome from "./pages/UserHome";
+import { getRole, setRole, type UserRole } from "./lib/roleStorage";
 
 export default function App() {
-  const [status, setStatus] = useState<ApiStatus>({
-    ok: false,
-    message: "Checking API..."
-  });
+  const [role, setCurrentRole] = useState<UserRole | null>(getRole());
 
-  useEffect(() => {
-    const check = async () => {
-      try {
-        await getJson("/openapi/v1.json");
-        setStatus({ ok: true, message: "API reachable" });
-      } catch {
-        setStatus({ ok: false, message: "API not reachable" });
-      }
-    };
-
-    check();
-  }, []);
+  const handleRoleSelect = (selectedRole: UserRole) => {
+    setRole(selectedRole);
+    setCurrentRole(selectedRole);
+  };
 
   return (
-    <div className="page">
-      <header className="header">
-        <h1>AI Recipe Generator</h1>
-        <p>Simple React SPA wired to the ASP.NET Core API.</p>
-      </header>
+    <Routes>
+      <Route path="/" element={<StartPage onSelectRole={handleRoleSelect} />} />
 
-      <section className="card">
-        <h2>API Status</h2>
-        <p>
-          <strong>{status.message}</strong>
-        </p>
-        <p className="muted">Base URL: {apiBaseUrl}</p>
-      </section>
-    </div>
+      <Route
+        path="/user"
+        element={role === "user" ? <UserLayout /> : <Navigate to="/" replace />}
+      >
+        <Route index element={<UserHome />} />
+      </Route>
+
+      <Route
+        path="/admin"
+        element={role === "admin" ? <AdminLayout /> : <Navigate to="/" replace />}
+      >
+        <Route index element={<AdminHome />} />
+      </Route>
+
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }

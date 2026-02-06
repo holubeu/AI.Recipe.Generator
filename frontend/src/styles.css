@@ -36,6 +36,40 @@ body {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
+.role-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.button {
+  border: 1px solid #2f2f2f;
+  background: #2f2f2f;
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.button.secondary {
+  background: transparent;
+  color: #2f2f2f;
+}
+
+.layout-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.link {
+  color: #2f2f2f;
+  text-decoration: none;
+  font-weight: 600;
+}
+
 .muted {
   color: #6b6b6b;
   font-size: 14px;
