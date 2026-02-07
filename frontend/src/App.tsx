@@ -10,7 +10,6 @@ import IngredientsPage from "./pages/IngredientsPage";
 import RecipesPage from "./pages/RecipesPage";
 import SavedRecipesPage from "./pages/SavedRecipesPage";
 import StartPage from "./pages/StartPage";
-import UserHome from "./pages/UserHome";
 import { getRole, setRole, type UserRole } from "./lib/roleStorage";
 
 export default function App() {
@@ -29,7 +28,7 @@ export default function App() {
         path="/user"
         element={role === "user" ? <UserLayout /> : <Navigate to="/" replace />}
       >
-        <Route index element={<UserHome />} />
+        <Route index element={<GenerateRecipePage />} />
         <Route path="generate" element={<GenerateRecipePage />} />
         <Route path="saved" element={<SavedRecipesPage />} />
       </Route>

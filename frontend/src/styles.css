@@ -236,6 +236,65 @@ body {
   gap: 12px;
 }
 
+.filters-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 16px 0 24px;
+}
+
+.select-input {
+  border: 1px solid #e0d7cd;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  background: #ffffff;
+}
+
+.recipe-list {
+  display: grid;
+  gap: 16px;
+  margin: 16px 0 24px;
+}
+
+.recipe-item {
+  border: 1px solid #e5ded5;
+  border-radius: 12px;
+  padding: 16px;
+  background: #ffffff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.recipe-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.recipe-header h3 {
+  margin: 0 0 6px;
+}
+
+.recipe-form {
+  display: grid;
+  gap: 12px;
+}
+
+.recipe-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
 .warning {
   color: #b45309;
   background: #fff4e5;
