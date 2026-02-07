@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { deleteRecipe, getRecipes, updateRecipe } from "../lib/apiClient";
-import RecipeEditForm from "../components/RecipeEditForm";
+import RecipeEditForm from "../components/RecipeEditForm.tsx";
 import type { GetRecipeResponseModel } from "../lib/apiResponseModels";
 
 const PAGE_SIZE = 25;
@@ -193,7 +193,7 @@ export default function SavedRecipesPage() {
                   <RecipeEditForm
                     recipe={recipe}
                     fields={editingFields}
-                    onChange={(fields) => setEditingFields(fields)}
+                    onChange={(fields: EditableRecipeFields) => setEditingFields(fields)}
                     onSave={() => handleSave(recipe)}
                     onCancel={handleCancel}
                     isSaving={isSaving}
