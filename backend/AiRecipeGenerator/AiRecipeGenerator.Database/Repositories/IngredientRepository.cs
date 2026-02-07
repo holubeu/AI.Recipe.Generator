@@ -116,8 +116,8 @@ public class IngredientRepository(IDbConnectionFactory connectionFactory) : IIng
                 Name = row.Name,
                 CategoryId = (int)row.CategoryId,
                 IsVisibleOnCard = Convert.ToBoolean(row.IsVisibleOnCard),
-                CreatedOn = DateTime.ParseExact((string)row.CreatedOn, "O", System.Globalization.CultureInfo.InvariantCulture),
-                UpdatedOn = DateTime.ParseExact((string)row.UpdatedOn, "O", System.Globalization.CultureInfo.InvariantCulture),
+                CreatedOn = DateTime.Parse((string)row.CreatedOn, System.Globalization.CultureInfo.InvariantCulture),
+                UpdatedOn = DateTime.Parse((string)row.UpdatedOn, System.Globalization.CultureInfo.InvariantCulture),
                 ImagePath = row.ImagePath
             },
             (string)row.CategoryName

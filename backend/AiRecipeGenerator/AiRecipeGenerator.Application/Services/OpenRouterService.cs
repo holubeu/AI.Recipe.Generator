@@ -28,6 +28,7 @@ Instructions:
 - Put true to the recipeFound field of JSON if a recipe is found, otherwise put false.
 - If no recipe can be found for the given ingredients, write a message stating that and put it to message field of the JSON.
 - Put the name of the dish to recipe.name field of the JSON.
+- Put a dish type if it exist to recipe.dishType field of the JSON. For example Salads, Hot dishes, Cold starters.
 - Put a short description of the dish if the description was found to recipe.description field of the JSON.
 - Put each step into a separate element of the steps array of the JSON.
 - Put the minimum cooking time in minutes to cookingTime.from field of the JSON.
