@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { addRecipe, generateRecipe, getAllIngredientsGrouped } from "../lib/apiClient";
+import IngredientCard from "../components/IngredientCard";
 import type {
   GeneratedRecipeResponseModel,
   GetAllIngredientsResponseModel,
@@ -238,20 +239,13 @@ export default function GenerateRecipePage() {
                     <h4>{group.category}</h4>
                     <div className="ingredient-grid">
                       {visibleIngredients.map((ingredient) => (
-                        <button
+                        <IngredientCard
                           key={`${group.category}-${ingredient.name}`}
-                          className="ingredient-card"
-                          onClick={() => handleAddIngredient(ingredient.name)}
-                        >
-                          {ingredient.imagePath && (
-                            <img
-                              className="ingredient-image"
-                              src={ingredient.imagePath}
-                              alt={ingredient.name}
-                            />
-                          )}
-                          <span>{ingredient.name}</span>
-                        </button>
+                          variant="ingredient"
+                          name={ingredient.name}
+                          imagePath={ingredient.imagePath}
+                          onSelect={() => handleAddIngredient(ingredient.name)}
+                        />
                       ))}
                     </div>
                   </div>
@@ -268,16 +262,12 @@ export default function GenerateRecipePage() {
               <p className="muted">No ingredients selected yet.</p>
             )}
             {selectedIngredients.map((ingredient) => (
-              <div key={ingredient.name} className="selected-card">
-                <span>{ingredient.name}</span>
-                <button
-                  className="remove-button"
-                  onClick={() => handleRemoveIngredient(ingredient.name)}
-                  aria-label={`Remove ${ingredient.name}`}
-                >
-                  ×
-                </button>
-              </div>
+              <IngredientCard
+                key={ingredient.name}
+                variant="selected"
+                name={ingredient.name}
+                onRemove={() => handleRemoveIngredient(ingredient.name)}
+              />
             ))}
           </div>
 
