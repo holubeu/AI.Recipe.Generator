@@ -1,9 +1,10 @@
-using AiRecipeGenerator.API.Authentication;
 using AiRecipeGenerator.API.Middleware;
 using AiRecipeGenerator.Application;
 using AiRecipeGenerator.Application.Interfaces;
 using AiRecipeGenerator.Application.Services;
 using AiRecipeGenerator.Database;
+
+using Microsoft.Extensions.FileProviders;
 
 using Scalar.AspNetCore;
 
@@ -37,6 +38,13 @@ builder.Services.AddSingleton<IDatabaseInitializationService>(
     new DatabaseInitializationService(connectionString));
 
 var app = builder.Build();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(app.Environment.ContentRootPath, "Images")),
+    RequestPath = "/images"
+});
 
 // Initialize database at startup
 using (var scope = app.Services.CreateScope())
