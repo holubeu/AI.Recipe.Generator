@@ -4,7 +4,6 @@ import NavigationMenu from "../components/NavigationMenu";
 const adminMenuItems = [
   { label: "Ingredients", to: "/admin/ingredients" },
   { label: "Ingredient Categories", to: "/admin/ingredient-categories" },
-  { label: "Recipes", to: "/admin/recipes" },
   { label: "Api Keys", to: "/admin/api-keys" },
 ];
 

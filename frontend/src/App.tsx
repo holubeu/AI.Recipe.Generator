@@ -7,7 +7,6 @@ import ApiKeysPage from "./pages/ApiKeysPage";
 import GenerateRecipePage from "./pages/GenerateRecipePage";
 import IngredientCategoriesPage from "./pages/IngredientCategoriesPage";
 import IngredientsPage from "./pages/IngredientsPage";
-import RecipesPage from "./pages/RecipesPage";
 import SavedRecipesPage from "./pages/SavedRecipesPage";
 import StartPage from "./pages/StartPage";
 import { getRole, setRole, type UserRole } from "./lib/roleStorage";
@@ -40,7 +39,6 @@ export default function App() {
         <Route index element={<AdminHome />} />
         <Route path="ingredients" element={<IngredientsPage />} />
         <Route path="ingredient-categories" element={<IngredientCategoriesPage />} />
-        <Route path="recipes" element={<RecipesPage />} />
         <Route path="api-keys" element={<ApiKeysPage />} />
       </Route>
 
