@@ -334,6 +334,49 @@ body {
   margin-top: 12px;
 }
 
+.field-error {
+  margin: 8px 0 0;
+  color: #9a3412;
+  font-size: 14px;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  margin-top: 16px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.data-table th,
+.data-table td {
+  border-bottom: 1px solid #ede4d9;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.data-table th {
+  font-weight: 600;
+  color: #2f2f2f;
+  background: #faf6f1;
+}
+
+.table-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .warning {
   color: #b45309;
   background: #fff4e5;
