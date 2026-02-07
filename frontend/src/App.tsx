@@ -3,6 +3,12 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import AdminLayout from "./layouts/AdminLayout";
 import UserLayout from "./layouts/UserLayout";
 import AdminHome from "./pages/AdminHome";
+import ApiKeysPage from "./pages/ApiKeysPage";
+import GenerateRecipePage from "./pages/GenerateRecipePage";
+import IngredientCategoriesPage from "./pages/IngredientCategoriesPage";
+import IngredientsPage from "./pages/IngredientsPage";
+import RecipesPage from "./pages/RecipesPage";
+import SavedRecipesPage from "./pages/SavedRecipesPage";
 import StartPage from "./pages/StartPage";
 import UserHome from "./pages/UserHome";
 import { getRole, setRole, type UserRole } from "./lib/roleStorage";
@@ -24,6 +30,8 @@ export default function App() {
         element={role === "user" ? <UserLayout /> : <Navigate to="/" replace />}
       >
         <Route index element={<UserHome />} />
+        <Route path="generate" element={<GenerateRecipePage />} />
+        <Route path="saved" element={<SavedRecipesPage />} />
       </Route>
 
       <Route
@@ -31,6 +39,10 @@ export default function App() {
         element={role === "admin" ? <AdminLayout /> : <Navigate to="/" replace />}
       >
         <Route index element={<AdminHome />} />
+        <Route path="ingredients" element={<IngredientsPage />} />
+        <Route path="ingredient-categories" element={<IngredientCategoriesPage />} />
+        <Route path="recipes" element={<RecipesPage />} />
+        <Route path="api-keys" element={<ApiKeysPage />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

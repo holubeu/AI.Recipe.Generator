@@ -64,6 +64,44 @@ body {
   margin-bottom: 20px;
 }
 
+.menu {
+  margin-bottom: 20px;
+}
+
+.menu-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-link {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #e5ded5;
+  border-radius: 999px;
+  padding: 8px 14px;
+  text-decoration: none;
+  color: #2f2f2f;
+  font-weight: 600;
+  background: #ffffff;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.menu-link:hover {
+  background: #f3eee8;
+  border-color: #d7cdc1;
+  transform: translateY(-1px);
+}
+
+.menu-link.active {
+  background: #2f2f2f;
+  border-color: #2f2f2f;
+  color: #ffffff;
+}
+
 .link {
   color: #2f2f2f;
   text-decoration: none;

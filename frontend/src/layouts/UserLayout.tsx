@@ -1,4 +1,10 @@
 import { Link, Outlet } from "react-router-dom";
+import NavigationMenu from "../components/NavigationMenu";
+
+const userMenuItems = [
+  { label: "Generate Recipe", to: "/user/generate" },
+  { label: "Saved Recipes", to: "/user/saved" },
+];
 
 export default function UserLayout() {
   return (
@@ -9,6 +15,7 @@ export default function UserLayout() {
           Change role
         </Link>
       </header>
+      <NavigationMenu items={userMenuItems} ariaLabel="User navigation" />
       <Outlet />
     </div>
   );
