@@ -224,33 +224,35 @@ export default function GenerateRecipePage() {
           {loadError && <p className="warning">{loadError}</p>}
 
           {!isLoadingIngredients && !loadError && (
-            <div className="ingredient-groups">
-              {ingredientGroups.map((group) => {
-                const visibleIngredients = group.ingredients.filter(
-                  (ingredient) => ingredient.isVisibleOnCard,
-                );
+            <div className="ingredient-scroll">
+              <div className="ingredient-groups">
+                {ingredientGroups.map((group) => {
+                  const visibleIngredients = group.ingredients.filter(
+                    (ingredient) => ingredient.isVisibleOnCard,
+                  );
 
-                if (visibleIngredients.length === 0) {
-                  return null;
-                }
+                  if (visibleIngredients.length === 0) {
+                    return null;
+                  }
 
-                return (
-                  <div key={group.category} className="ingredient-group">
-                    <h4>{group.category}</h4>
-                    <div className="ingredient-grid">
-                      {visibleIngredients.map((ingredient) => (
-                        <IngredientCard
-                          key={`${group.category}-${ingredient.name}`}
-                          variant="ingredient"
-                          name={ingredient.name}
-                          imagePath={ingredient.imagePath}
-                          onSelect={() => handleAddIngredient(ingredient.name)}
-                        />
-                      ))}
+                  return (
+                    <div key={group.category} className="ingredient-group">
+                      <h4>{group.category}</h4>
+                      <div className="ingredient-grid">
+                        {visibleIngredients.map((ingredient) => (
+                          <IngredientCard
+                            key={`${group.category}-${ingredient.name}`}
+                            variant="ingredient"
+                            name={ingredient.name}
+                            imagePath={ingredient.imagePath}
+                            onSelect={() => handleAddIngredient(ingredient.name)}
+                          />
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
           )}
         </div>

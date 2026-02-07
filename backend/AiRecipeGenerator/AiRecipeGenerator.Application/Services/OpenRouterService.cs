@@ -41,6 +41,7 @@ Instructions:
   ""recipe"": {
     ""name"": ""string"",
     ""description"": ""string"",
+    ""dishType"": ""string"",
     ""steps"": [
       ""string""
     ],

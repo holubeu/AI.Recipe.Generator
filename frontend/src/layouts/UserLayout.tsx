@@ -10,7 +10,7 @@ export default function UserLayout() {
   return (
     <div className="page">
       <header className="layout-header">
-        <h1>User Area</h1>
+        <h1>AI Recipe Generator</h1>
         <Link className="link" to="/">
           Change role
         </Link>
