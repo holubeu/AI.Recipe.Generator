@@ -14,9 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Images\chicken.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Images\chicken_egg.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
