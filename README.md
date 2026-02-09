@@ -23,6 +23,27 @@ The application lets users generate recipes from selected ingredients, review an
 	- Run: `npm run dev`.
 	- **UI should be available at:** http://localhost:5173/
 
+#### How to Add an API Key for AI Recipe Generator
+
+##### Prerequisites
+- You must obtain an API Key directly from me.
+- Contact me via **Microsoft Teams** or by **email** (a.holubeu) to request the API Key.
+
+##### Steps to Add the API Key
+1. **Launch the application**.
+2. On the **Start Page**, select the role **Admin**.
+3. In the Admin layout, open the **Api Keys** menu.
+4. Click the **API Key** button.
+5. Enter the API Key you received from me.
+6. Press **Save** to store the key.
+
+##### Switching Roles
+- After saving the API Key, you can change your role:
+  1. Click **Change role** in the top‑right corner of the page.
+  2. Select **User**.
+  3. You will be redirected to the **User layout main page**.
+
+
 ## How I used AI to build the app
 
 ### Backend
